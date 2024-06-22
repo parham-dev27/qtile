@@ -8,6 +8,8 @@ from libqtile import widget
 from libqtile import qtile 
 
 
+#! SCRATCHPAD
+
 
 setlocale(LC_ALL, "")
 
@@ -88,11 +90,7 @@ keys = [
 # ! Groups
 
 # GROUPS
-groups = [
-    ScratchPad("scratchpad", [
-        DropDown("terminal", "xfce4-terminal", width=0.6, height=0.4, opacity=0.8)
-    ])
-] + [Group(i) for i in "123456789"]
+groups = [Group(i) for i in "123456789"]
 
 keys.extend([
     Key([mod], "grave", lazy.group["scratchpad"].dropdown_toggle("terminal")),
@@ -168,6 +166,10 @@ mouse = [
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call([home])
+
+@hook.subscribe.startup
+def start_always():
+    subprocess.Popen(["xsetroot", "-cursor_name", "left_ptr"])
 
 # ! Screens
 
